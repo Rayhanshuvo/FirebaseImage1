@@ -1,6 +1,7 @@
 package database.google.com.firebaseimage1;
 
 import android.media.Image;
+import android.widget.ImageView;
 
 /**
  * Created by ray on 10/12/2017.
@@ -16,7 +17,7 @@ public  firstclass(){
 
 }
 
-    public firstclass(String desc, String title, String timestamp) {
+    public firstclass(String desc, String title, String timestamp, ImageView img) {
         this.desc = desc;
         this.title = title;
         this.timestamp = timestamp;
@@ -33,4 +34,5 @@ public  firstclass(){
     public String getTimestamp() {
         return timestamp;
     }
+
 }

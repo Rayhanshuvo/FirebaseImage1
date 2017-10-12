@@ -1,11 +1,14 @@
 package database.google.com.firebaseimage1;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -39,12 +42,20 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
         firebaseRecyclerAdapter= new FirebaseRecyclerAdapter<firstclass, ViewHolder>(firstclass.class,
-                android.R.layout.test_list_item,ViewHolder.class,
+                R.layout.custom_row,ViewHolder.class,
                 databaseReference.child("MBlog")) {
             @Override
-            protected void populateViewHolder(ViewHolder viewHolder, firstclass model, int position) {
+            protected void populateViewHolder(ViewHolder viewHolder, firstclass model, final int position) {
 
-viewHolder.txtView.setText( model.getDesc() +"\n"+ model.getTimestamp()+"\n"+ model.getTitle() );
+                viewHolder.tv1.setText(model.getDesc());
+                viewHolder.tv2.setText(model.getTitle());
+                viewHolder.tv3.setText(model.getTimestamp());
+                viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MainActivity.this,"Okay"+position,Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         };
 
@@ -55,12 +66,17 @@ recyclerView.setAdapter(firebaseRecyclerAdapter);
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        TextView txtView;
+        TextView tv1,tv2,tv3;
+
         View view;
         public ViewHolder(View itemView){
 
             super(itemView);
-            txtView=(TextView)itemView.findViewById(android.R.id.text1);
+            tv1=(TextView)itemView.findViewById(R.id.desc);
+            tv2=(TextView)itemView.findViewById(R.id.titlee);
+            tv3=(TextView)itemView.findViewById(R.id.idddd);
+
+
             view=itemView;
         }
     }
